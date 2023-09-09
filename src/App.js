@@ -1,23 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
+import SearchBarComponent from './components/SearchBarComponent';
+import CardHolderComponent from './components/CardHolderComponent';
+import { useState } from 'react';
 
 function App() {
+  let [searchResults, setSearchResults] = useState({meals: []});
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="d-inline-block mx-auto">
+        <h1 className='my-5 d-inline-block px-3'>MealsDB</h1>
+      <SearchBarComponent setSearchResults={setSearchResults} />
+      <CardHolderComponent meals={searchResults.meals} />
+      </div>
     </div>
   );
 }
