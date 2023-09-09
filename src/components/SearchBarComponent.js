@@ -14,8 +14,14 @@ function SearchBarComponent({setSearchResults}) {
       await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`)
         .then(response => response.json())
         .then(d => {
-          console.log("data changed");
-          setSearchResults(d)
+          if (d.meals == null || d.meals.length == 0) {
+            console.log("No Dish found for the entered food!")
+            alert("No Dish found for the food name!")
+          }
+          else {
+            console.log("data changed");
+            setSearchResults(d)
+          }
         })
     }
     catch (error) {
@@ -41,7 +47,13 @@ function SearchBarComponent({setSearchResults}) {
           <Col xs="auto">
             <Button type="submit" onClick={(e) => {
               e.preventDefault()
-              apiRead()}}>Submit</Button>
+              if (searchText.length == 0) {
+                alert("Please enter a food name (E.g: chicken) in search field")
+              }
+              else {
+                apiRead()
+              }
+              }}>Submit</Button>
           </Col>
         </Row>
       </Form>
